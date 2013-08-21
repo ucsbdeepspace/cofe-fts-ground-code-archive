@@ -1,0 +1,19 @@
+HOW THE GROUNDSTATION WORKS:
+
+The telemetry code is pointed at a directory. That directory has a bunch of "YYYYMMDD" subfolders, into which telemetry dumps "HHMMSS.spaceball" files. The groundstation is intended to read those files and provide semi-real-time plotting capability for the data collected from them.
+
+You start the groundstation by executing run.py. It will prompt you for a folder. Give it the top-level folder used by telemetry (the one containing the YYYYMMDD subfolders which contain the spaceballs).
+
+The groundstation has three main windows: data control, data view, and plot control.
+
+Data control is the small one. You can enter a start time as YYYY/MM/DD HH:MM:SS and a duration as HH:MM:SS. These control the range of data you look at. When you hit Enter in either of those fields or click the Refresh button, the data from every file between (start time) and (start time + duration) is "loaded," and the text in the data view window is updated.
+- The "Live" checkbox makes it so that, every few seconds, everything is updated as though the Refresh button had been clicked, EXCEPT the entered start time is disregarded, and the time range to be loaded is (last file time - duration) to (last file time).
+- The "Rev-sync" checkbox is intended to synchronize the telescope data to the rest of the data, accounting for the substantial delay between when it's gathered and when it arrives at the flight computer, and I think it works reasonably well, but take rev-synced data with a grain of salt -- it hasn't been tested much yet.
+- The "Averaging" checkbox, when checked, will cause the data in each file to be averaged together, allowing the loading of data from much larger time ranges without MemoryErrors occurring (which usually happens in the half-hour-duration range).
+- The "Convert" checkbox will cause the groundstation to convert .spaceball files into .fits files. If you keep seeing "No files in given time range", and you know there should be files in that range, try checking "Convert". However, try not to have it checked on two different computers pointing at the same directory, or they may interfere with each other.
+
+Data view is the window with all the text. Each device has a grid of channels associated with it, and next to each channel is shown the last value for that channel in the loaded data -- that is, the most recent value in the current time range. If the checkbox in the top left is checked, though, each value will INSTEAD be the root mean square of the last N samples in that channel, where N is the number in the text field next to the checkbox.
+
+Plot control is the window with all the checkboxes. Every device has a grid of channel checkboxes associated with it. When you click the Plot button at the bottom, the data for every channel whose box is checked will be plotted, over the entire current time range. The x-axis is the timestamp the flight computer put on the data when it received it, and the y-axis is the channel value. (Note: telescope data can take up to a minute before arriving at the flight computer, and it arrives in bursts a few times per minute, resulting in discrete clusters on the plot. Until the Rev-sync checkbox is fixed, the x-axis for telescope data should not be taken at face value.)
+
+The x-axis is in minutes since the flight computer was turned on. It's ugly, I know -- I've left a description of how I think it should be fixed in analysis/reshaping.py and plotcontrol.py, but don't have time to implement the changes at the moment.

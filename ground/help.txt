@@ -1,0 +1,12 @@
+--DOING STUFF--
+If you want to run telemetry or the groundstation, double-click ground.py. If you don't like a setting, such as the telemetry baud rate, where telemetry dumps files, or the comm ports used by the telemetry, change the value assigned to it in Release\ground\ground.cfg.
+
+
+--DIRECTORY CONTENTS--
+I don't know what diodefit, gui, idl_gui, pyread, or sync do.
+
+groundstation/ contains the code for the groundstation, including the spaceball- and fits-reshaping code.
+
+telemetry.exe, run as "telemetry.exe FOLDER COMPORT BAUD", will listen on the given comport with the given baud rate for spaceball files, and write those to disk in the given folder.
+
+ground.py starts high- and low-speed telemetry and the groundstation. The startup info for the telemetry codes is read from ground.cfg.

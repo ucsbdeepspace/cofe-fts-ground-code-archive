@@ -1,0 +1,11 @@
+This directory contains the executable files for COFE.
+
+communications/ provides comm-to-ip capability and "robustness", a package that wraps sockets in such a way that they can detect and recover from interruptions in the connection. The telescope server code also lives there, since it requires robustness and I know of no clean way to import it if it's not in the same directory.
+
+flight/ contains the code to be run on the flight computer.
+
+ground/ contains the code to be run on the ground computer.
+
+telescope/ contains the code to be run on the telescope computer.
+
+On the MOKA computers, the communications, flight, and telescope directories should all be located in the same parent directory as each other.

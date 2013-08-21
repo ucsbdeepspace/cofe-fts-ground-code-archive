@@ -1,0 +1,5 @@
+* moving average only on plots, set when plot button is clicked
+* plot older data with duration + start time of the day
+
+* data sync of hk on rev
+* reshape_fits smart checking computerClock
